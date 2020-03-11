@@ -18,7 +18,7 @@ function traverseRoot<T extends EntityBase>(parentPath: any, root: TreeEntity<T>
     let pointer = null;
 
     while (visitedNodes.length > 0) {
-        pointer = visitedNodes.pop();
+        pointer = visitedNodes.pop() as TreeEntity<T>;
         if (pointer.content._id.toString() === parentPath.toString()) {
             return pointer;
         }

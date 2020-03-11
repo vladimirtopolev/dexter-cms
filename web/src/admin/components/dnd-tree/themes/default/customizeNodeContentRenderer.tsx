@@ -9,6 +9,7 @@ import dragSourceRendererDefault from './components/DragSourceRenderer';
 import styles from './NodeContentRenderer.module.scss';
 import {NodeData, NodeRendererProps, TreeItem} from 'react-sortable-tree';
 import {CustomizeDefaultThemeProps} from './index';
+import {PageItem} from '../../../../modules/page-tree/types';
 
 export type CollapseButtonRendererProps = {
     node: TreeItem,
@@ -25,6 +26,7 @@ export type NodeContentRendererProps = {
     treeIndex: number,
     treeId: string,
     deleteNode: (node: TreeItem) => void,
+    createNode: (node: PageItem) => void,
     parentRef?: RefObject<HTMLElement | null>
 }
 
@@ -41,6 +43,7 @@ export default ({
                     specificCollapseButtonRenderer,
                     specificDragSourceRenderer,
                     deleteNode,
+                    createNode,
                     parentRef
                 }: CustomizeDefaultThemeProps) => {
 
@@ -137,7 +140,7 @@ export default ({
                                 )}
                                 >
                                     <div className={styles.nodeContentWrapper}>
-                                        {nodeContentRenderer({node, path, treeIndex, treeId, deleteNode, parentRef})}
+                                        {nodeContentRenderer({node, path, treeIndex, treeId, deleteNode, createNode, parentRef})}
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 export type TreeEntity<T> = {
     content: T,
-    children: TreeEntity<T>[]
+    children: TreeEntity<T>[],
+    expanded?: boolean
 }
 
 export type EntityBase = {
@@ -9,7 +10,11 @@ export type EntityBase = {
 }
 
 const buildTree =<T extends EntityBase> (parentPath: string | null, pages: T[]): TreeEntity<T>[] => {
-    const splittedPages = pages.reduce((memo, page) => {
+    type ReduceType = {
+        currentPages: T[],
+        restPages: T[]
+    }
+    const splittedPages = pages.reduce<ReduceType>((memo, page) => {
         const handledParentPath = parentPath === null ? null : parentPath.toString();
         const handledPageParentPath = page.parentPath === null ? null : page.parentPath.toString();
         const key = (handledPageParentPath === handledParentPath) ? 'currentPages' : 'restPages';

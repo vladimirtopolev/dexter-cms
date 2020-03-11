@@ -6,6 +6,7 @@ import customizeNodeContentRenderer, {
     CollapseButtonRendererProps, DragSourceRendererProps,
     NodeContentRendererProps
 } from './customizeNodeContentRenderer';
+import {PageItem} from '../../../../modules/page-tree/types';
 
 
 export type CustomizeDefaultThemeProps = {
@@ -13,6 +14,7 @@ export type CustomizeDefaultThemeProps = {
     specificCollapseButtonRenderer?: (props: CollapseButtonRendererProps) => React.ReactElement,
     specificDragSourceRenderer?: (props: DragSourceRendererProps) => React.ReactElement,
     deleteNode: (node: TreeItem) => void,
+    createNode: (page: PageItem) => void,
     parentRef?: RefObject<HTMLElement | null>
 }
 export default function customizeDefaultTheme(props: CustomizeDefaultThemeProps): ThemeProps {

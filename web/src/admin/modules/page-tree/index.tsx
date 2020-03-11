@@ -1,56 +1,51 @@
 import React, {useState, useRef, useEffect} from 'react';
-import axios from 'axios';
 import DndTree from '../../components/dnd-tree';
 import {PageItem} from './types';
-import config from '../../../config/config.json';
 
+import * as actions from './actions';
 import CollapseButtonRenderer from './components/CollapseButtonRenderer';
 import DragSourceRenderer from './components/DragSourceRenderer';
 import NodeContentRenderer from './components/NodeContentRenderer';
 import customizeDefaultTheme from '../../components/dnd-tree/themes/default';
 import {TreeItem} from 'react-sortable-tree';
-
-const pageTree: PageItem[] = [
-    {
-        _id: 1,
-        title: 'HomePage',
-        children: [
-            {
-                _id: 2,
-                title: 'About us'
-            },
-            {
-                _id: 3,
-                title: 'Products',
-                children: [
-                    {
-                        _id: 4,
-                        title: '1'
-                    },
-                    {
-                        _id: 5,
-                        title: '2'
-                    }
-                ]
-            }
-        ]
-    }
-];
+import findParentNode from './helpers/findParentNode';
+import {TreeEntity} from './helpers/buildTree';
 
 export default () => {
-    const [treeData, changeTreeData] = useState<PageItem[]>([]);
+    const [treeData, changeTreeData] = useState<TreeEntity<PageItem>[]>([]);
     const parentRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        axios.get(`${config.path}/api/pages/tree`)
-            .then(res => {
-                console.log(res);
-                changeTreeData(res.data);
-            })
+        actions.getTree(data => changeTreeData(data));
     }, []);
 
+    const createNode = (newNode: PageItem) => {
+        changeTreeData((prevTree) => {
+            const treeEntity = {
+                content: newNode,
+                children: []
+            };
+
+            if (newNode.parentPath === null){
+                return [...prevTree, treeEntity];
+            }
+            const parentNode = findParentNode(newNode.parentPath, prevTree) as TreeEntity<PageItem>;
+            parentNode.expanded = true;
+            parentNode.children.push(treeEntity);
+            return [...prevTree];
+        })
+    };
+
     return (
-        <div style={{ height: 400 }} ref={parentRef}>
-                <DndTree<PageItem>
+        <div>
+            <button onClick={() => {
+                actions.createPage<PageItem>(null, {
+                    title: 'Title...',
+                    locale: 'en-US',
+                }, page => createNode(page));
+            }}>Добавить
+            </button>
+            <div style={{height: 400}} ref={parentRef}>
+                <DndTree<TreeEntity<PageItem>>
                     treeData={treeData}
                     onChange={changeTreeData}
                     rowHeight={40}
@@ -59,11 +54,22 @@ export default () => {
                         specificDragSourceRenderer: DragSourceRenderer,
                         specificNodeContentRenderer: NodeContentRenderer,
                         parentRef: parentRef,
-                        deleteNode: (node: TreeItem) => {
-                            console.log(node)
-                        }
+                        deleteNode: (deletedNode: TreeItem) => {
+                            const node = deletedNode as TreeEntity<PageItem>;
+                            if (node.content.parentPath === null) {
+                                changeTreeData(prevTree => prevTree.filter(item => item.content._id !== node.content._id));
+                            } else {
+                                changeTreeData((prevTree) => {
+                                    const parentNode = findParentNode(node.content.parentPath, prevTree) as TreeEntity<PageItem>;
+                                    parentNode.children = parentNode.children.filter(item => item.content._id !== node.content._id)
+                                    return [...prevTree];
+                                })
+                            }
+                        },
+                        createNode: (page: PageItem) => createNode(page)
                     })}
                 />
+            </div>
         </div>
     )
 }

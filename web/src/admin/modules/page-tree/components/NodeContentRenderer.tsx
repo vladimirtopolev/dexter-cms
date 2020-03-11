@@ -2,6 +2,8 @@ import React, {RefObject, useEffect, useState} from 'react';
 import cn from 'classnames';
 import styles from './NodeContentRenderer.module.scss';
 import {NodeContentRendererProps} from '../../../components/dnd-tree/themes/default/customizeNodeContentRenderer';
+import * as actions from '../actions';
+import {PageItem} from '../types';
 
 type ContextMenuState = {
     isOpen: boolean,
@@ -26,7 +28,7 @@ const Node = (props: NodeContentRendererProps) => {
     return (
         <div className={styles.nodeContent}
              onContextMenu={(e) => {
-                 const parentEl =  (props.parentRef as RefObject<HTMLElement>).current as HTMLElement;
+                 const parentEl = (props.parentRef as RefObject<HTMLElement>).current as HTMLElement;
                  e.preventDefault();
                  changeContextMenuState({
                      isOpen: true,
@@ -61,8 +63,9 @@ const Node = (props: NodeContentRendererProps) => {
                 <li className={styles.contextMenu__item}>
                     <a href="#"
                        className={styles.contextMenu__link}
-                       onClick={() => {
-
+                       onClick={(e) => {
+                           e.preventDefault();
+                           actions.createPage<PageItem>(props.node.content._id, {title: 'Children'}, page => props.createNode(page));
                        }}>
                         Создать страницу
                     </a>
@@ -71,9 +74,8 @@ const Node = (props: NodeContentRendererProps) => {
                     <a href="#"
                        className={styles.contextMenu__link}
                        onClick={(e) => {
-                           console.log(props.treeId, props.treeIndex);
-                           props.deleteNode(props.node);
                            e.preventDefault();
+                           actions.deletePage(props.node.content._id, () => props.deleteNode(props.node));
                        }}>
 
                         Удалить
