@@ -74,6 +74,17 @@ class PageTreeController {
             console.log(e);
             res.send('Error');
         }
+    };
+
+    getEntity = async (req: Request, res: Response) => {
+        try {
+            const {id} = req.params;
+            const entity = await PageEntityModel.findById(id);
+            res.json(entity);
+        } catch (e) {
+            console.log(e);
+            res.send('Error');
+        }
     }
 }
 
