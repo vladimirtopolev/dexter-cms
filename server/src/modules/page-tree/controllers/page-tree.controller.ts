@@ -36,6 +36,15 @@ class PageTreeController {
         }
     };
 
+    deletePageFromTree = (page: PageEntityDocument) => {
+        if (page.parentPath === null) {
+            this.treeEntities = this.treeEntities.filter(p => p.content._id.toString() !== page._id.toString())
+        } else {
+            const parentNode = findParentNode(new Types.ObjectId(page.parentPath), this.treeEntities);
+            parentNode.children = parentNode.children.filter(p => p.content._id.toString() !== page._id.toString());
+        }
+    };
+
     createEntity = async (req: Request, res: Response) => {
         try {
             const {locale, parentPath, title, content} = req.body;
@@ -53,6 +62,19 @@ class PageTreeController {
             res.send('Error');
         }
     };
+
+    deleteEntity = async (req: Request, res: Response) => {
+        try {
+            const {id} = req.params;
+
+            const deletedElement = await PageEntityModel.findByIdAndDelete(id);
+            this.deletePageFromTree(deletedElement.toObject());
+            res.json(deletedElement);
+        } catch (e) {
+            console.log(e);
+            res.send('Error');
+        }
+    }
 }
 
 export default new PageTreeController();

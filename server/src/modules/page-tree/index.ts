@@ -8,6 +8,7 @@ export default (): Router => {
         .get(pageTreeController.getTree);
 
     moduleRootRouter.post('', pageTreeController.createEntity);
+    moduleRootRouter.delete('/:id', pageTreeController.deleteEntity);
 
     return moduleRootRouter;
 }
