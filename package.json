@@ -1,0 +1,12 @@
+{
+  "name": "perfect-leo-product-poc-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "web:dev": "cd ./web && /node_modules/bin/react-scripts build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,15 @@
+@import "../../css-variables";
+
+.Widget {
+  &__title{
+    padding: 10px 20px;
+    background: $gray-strong-color;
+    color: #fff;
+    font-size: 16px;
+  }
+  &__content{
+    padding: 20px 20px;
+    border-radius: 0 5px;
+    background: #fff;
+  }
+}

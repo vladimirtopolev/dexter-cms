@@ -1,0 +1,7 @@
+@import "../../css-variables";
+
+.Header{
+  padding: $admin-header-padding;
+  display: flex;
+  font-size: 2rem;
+}

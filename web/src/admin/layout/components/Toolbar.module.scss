@@ -1,0 +1,54 @@
+@import "../../css-variables";
+
+.Toolbar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 220px;
+
+  &_flatten {
+    min-width: unset;
+
+    .Link {
+      &__text {
+        display: none;
+      }
+      &__icon{
+        margin: 0;
+      }
+    }
+  }
+}
+
+.Link {
+  padding: 10px 20px;
+  display: block;
+  color: rgba(255, 255, 255, .6);
+  font-size: 1.4rem;
+  line-height: 2rem;
+  text-decoration: none;
+
+  &__icon {
+    margin-right: 15px;
+    font-size: 2rem;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.FlatMenuBtn{
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: right;
+  outline: none;
+  color: #fff;
+  font-size: 1.2rem;
+  margin-top:5px;
+
+  &:hover{
+    color: $primary-color;
+  }
+}
