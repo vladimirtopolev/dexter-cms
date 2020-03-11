@@ -1,0 +1,19 @@
+.PageEditor {
+  font-size: 1.4rem;
+
+  &__toolbar {
+
+  }
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__menu {
+    min-width: 300px;
+  }
+
+  &__content {
+
+  }
+}

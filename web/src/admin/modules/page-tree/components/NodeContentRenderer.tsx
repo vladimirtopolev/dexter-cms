@@ -1,4 +1,5 @@
 import React, {RefObject, useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import cn from 'classnames';
 import styles from './NodeContentRenderer.module.scss';
 import {NodeContentRendererProps} from '../../../components/dnd-tree/themes/default/customizeNodeContentRenderer';
@@ -17,7 +18,7 @@ const Node = (props: NodeContentRendererProps) => {
         x: 0, y: 0
     });
 
-    console.log(props);
+    const history =  useHistory();
     const closeContextMenu = () => changeContextMenuState({...contextMenuState, isOpen: false});
 
     useEffect(() => {
@@ -27,6 +28,9 @@ const Node = (props: NodeContentRendererProps) => {
 
     return (
         <div className={styles.nodeContent}
+             onDoubleClick={() => {
+                 history.push(`/pages/${props.node.content._id}`)
+             }}
              onContextMenu={(e) => {
                  const parentEl = (props.parentRef as RefObject<HTMLElement>).current as HTMLElement;
                  e.preventDefault();

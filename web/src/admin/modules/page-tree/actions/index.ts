@@ -22,3 +22,8 @@ export function deletePage(_id: string, callback?: () => void) {
     axios.delete(`${config.path}/api/pages/${_id}`)
         .then(() => callback && callback());
 }
+
+export function getPage<T>(_id: string, callback?: (page: T | null) => void) {
+    axios.get(`${config.path}/api/pages/${_id}`)
+        .then(res => callback && callback(res.data));
+}
