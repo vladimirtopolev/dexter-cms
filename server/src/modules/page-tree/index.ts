@@ -10,7 +10,7 @@ export default (): Router => {
     moduleRootRouter.post('', pageTreeController.createEntity);
     moduleRootRouter.delete('/:id', pageTreeController.deleteEntity);
     moduleRootRouter.get('/:id', pageTreeController.getEntity);
-
+    moduleRootRouter.put('/:id', pageTreeController.updateEntity);
 
     return moduleRootRouter;
 }

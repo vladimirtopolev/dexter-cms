@@ -44,7 +44,7 @@ export default () => {
                 }, page => createNode(page));
             }}>Добавить
             </button>
-            <div style={{height: 400}} ref={parentRef}>
+            <div style={{height: 800}} ref={parentRef}>
                 <DndTree<TreeEntity<PageItem>>
                     treeData={treeData}
                     onChange={changeTreeData}

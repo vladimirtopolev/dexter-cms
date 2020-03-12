@@ -7,3 +7,7 @@ $secondary-color: #333;
 
 $gray-light-color: #d9e0e7;
 $gray-strong-color: #1d2226;
+
+@function changePrimaryColorOpacity($opacity){
+  @return rgba(0, 172, 172, $opacity)
+}

@@ -2,7 +2,8 @@ import {Request, Response} from 'express';
 import {PageEntityModel, PageEntityDocument} from '../models/page-tree.model';
 import buildTree, {TreeEntity} from '../helpers/buildTree';
 import findParentNode from '../helpers/findParentNode';
-import {Types} from 'mongoose'
+import {Types} from 'mongoose';
+import findNode from '../helpers/findNode';
 
 class PageTreeController {
     treeEntities: TreeEntity<PageEntityDocument>[] = [];
@@ -38,10 +39,17 @@ class PageTreeController {
 
     deletePageFromTree = (page: PageEntityDocument) => {
         if (page.parentPath === null) {
-            this.treeEntities = this.treeEntities.filter(p => p.content._id.toString() !== page._id.toString())
+            this.treeEntities = this.treeEntities.filter(p => p.content._id.toString() !== page._id.toString());
         } else {
             const parentNode = findParentNode(new Types.ObjectId(page.parentPath), this.treeEntities);
             parentNode.children = parentNode.children.filter(p => p.content._id.toString() !== page._id.toString());
+        }
+    };
+
+    updatePageInTree = (page: PageEntityDocument) => {
+        const node = findNode(page, this.treeEntities);
+        if (node){
+            node.content = page;
         }
     };
 
@@ -85,7 +93,22 @@ class PageTreeController {
             console.log(e);
             res.send('Error');
         }
-    }
+    };
+
+    updateEntity = async (req: Request, res: Response) => {
+        try {
+            const {id} = req.params;
+            const page = req.body;
+            const updatedPage = await PageEntityModel.findByIdAndUpdate(id, page, {new: true});
+            this.updatePageInTree(updatedPage.toObject());
+            res.json(updatedPage);
+        } catch (e) {
+            console.log(e);
+            res.send('Error');
+        }
+
+    };
+
 }
 
 export default new PageTreeController();

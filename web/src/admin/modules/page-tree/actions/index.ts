@@ -6,7 +6,7 @@ export function getTree(callback: (data: any) => void) {
         .then(res => {
             console.log(res);
             callback(res.data);
-        })
+        });
 }
 
 export function createPage<T>(parentPath: string | null, page: Partial<T>, callback?: (page: T) => void) {
@@ -14,8 +14,8 @@ export function createPage<T>(parentPath: string | null, page: Partial<T>, callb
         ...page,
         parentPath
     }).then((res) => {
-        callback && callback(res.data)
-    })
+        callback && callback(res.data);
+    });
 }
 
 export function deletePage(_id: string, callback?: () => void) {
@@ -23,7 +23,11 @@ export function deletePage(_id: string, callback?: () => void) {
         .then(() => callback && callback());
 }
 
-export function getPage<T>(_id: string, callback?: (page: T | null) => void) {
-    axios.get(`${config.path}/api/pages/${_id}`)
+export function getPage<T>(id: string, callback?: (page: T) => void) {
+    axios.get(`${config.path}/api/pages/${id}`)
         .then(res => callback && callback(res.data));
+}
+
+export function updatePage<T>(id: string, page: T) {
+    axios.put(`${config.path}/api/pages/${id}`, page);
 }

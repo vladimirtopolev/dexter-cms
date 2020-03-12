@@ -1,0 +1,9 @@
+.ModuleItem{
+  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid #efefef;
+
+  &__title{
+    flex-grow: 1;
+  }
+}

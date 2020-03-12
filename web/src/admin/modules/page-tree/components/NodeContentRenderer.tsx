@@ -24,7 +24,7 @@ const Node = (props: NodeContentRendererProps) => {
     useEffect(() => {
         document.addEventListener('click', closeContextMenu);
         return () => document.removeEventListener('click', closeContextMenu);
-    }, []);
+    });
 
     return (
         <div className={styles.nodeContent}
@@ -56,26 +56,26 @@ const Node = (props: NodeContentRendererProps) => {
                 }}
             >
                 <li className={styles.contextMenu__item}>
-                    <a href="#"
+                    <button
                        className={styles.contextMenu__link}
                        onClick={(e) => {
 
                        }}>
                         Редактировать
-                    </a>
+                    </button>
                 </li>
                 <li className={styles.contextMenu__item}>
-                    <a href="#"
+                    <button
                        className={styles.contextMenu__link}
                        onClick={(e) => {
                            e.preventDefault();
                            actions.createPage<PageItem>(props.node.content._id, {title: 'Children'}, page => props.createNode(page));
                        }}>
                         Создать страницу
-                    </a>
+                    </button>
                 </li>
                 <li className={styles.contextMenu__item}>
-                    <a href="#"
+                    <button
                        className={styles.contextMenu__link}
                        onClick={(e) => {
                            e.preventDefault();
@@ -83,7 +83,7 @@ const Node = (props: NodeContentRendererProps) => {
                        }}>
 
                         Удалить
-                    </a>
+                    </button>
                 </li>
 
             </ul>

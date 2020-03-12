@@ -4,10 +4,8 @@ import WidgetLayout from '../../components/common/WidgetLayout';
 
 export default () => {
     return (
-        <div>
-            <WidgetLayout title="Редактор страницы">
-                <PageEditor/>
-            </WidgetLayout>
-        </div>
-    )
+        <WidgetLayout title="Редактор страницы" contentWithoutPadding={true}>
+            <PageEditor/>
+        </WidgetLayout>
+    );
 }

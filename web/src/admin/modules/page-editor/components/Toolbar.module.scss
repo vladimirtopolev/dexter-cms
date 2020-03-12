@@ -1,0 +1,69 @@
+@import "../../../css-variables";
+
+$toolbar-width: 500px;
+
+.Toolbar {
+  $self: &;
+  border-right: 1px solid #efefef;
+  min-height: 100%;
+
+  width: $toolbar-width;
+  transition: all 1s ease;
+  overflow: hidden;
+
+
+  &__toolbar {
+    width: 100%;
+    padding: 5px 10px 5px 20px;
+    font-size: 1rem;
+    display: flex;
+  }
+
+  &__title{
+    flex-grow: 1;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 1s ease;
+    transform-origin: 0 100%;
+
+    z-index: 1000;
+  }
+
+  &__toggleBtn{
+    background: none;
+    border: none;
+    transition: margin-left 1s ease;
+    &:hover, &:active, &:focus{
+      color: $primary-color;
+      outline: none;
+    }
+  }
+
+  &__content {
+    position: relative;
+    transition: all 1.4s ease;
+    left: 0;
+    right: $toolbar-width;
+    width: $toolbar-width;
+    flex-grow: 1;
+  }
+
+  &_flatten {
+    width: 70px;
+
+    #{$self}__content {
+      left: -$toolbar-width;
+    }
+    #{$self}__title{
+      transform: rotate(90deg);
+    }
+    #{$self}__toggleBtn{
+      margin-left:-45px;
+    }
+  }
+}
+
+
+
+

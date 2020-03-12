@@ -1,0 +1,36 @@
+.Dropdown {
+  display: inline-block;
+  position: relative;
+
+  &__menu {
+    position: absolute;
+    background: #ffff;
+    display: none;
+    flex-direction: column;
+    box-shadow: -2px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    right: 0;
+  }
+
+  &__menu_open {
+    display: flex;
+  }
+
+  &__header {
+    border: none;
+    background: none;
+    outline: none;
+    height: 2rem;
+  }
+
+  &__item {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #efefef;
+    padding: 5px 10px;
+    text-align: left;
+
+    &:hover {
+      background: #efefef;
+    }
+  }
+}

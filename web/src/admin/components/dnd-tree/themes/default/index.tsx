@@ -1,5 +1,5 @@
 import React, {RefObject} from 'react';
-import {ThemeProps, TreeItem, TreeRenderer} from 'react-sortable-tree';
+import {ThemeProps, TreeItem} from 'react-sortable-tree';
 
 import customizeTreeNodeRenderer from './customizeTreeNodeRenderer';
 import customizeNodeContentRenderer, {

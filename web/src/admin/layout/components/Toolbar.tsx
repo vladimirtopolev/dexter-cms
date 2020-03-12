@@ -30,7 +30,7 @@ const toolbarItems = [
 export default () => {
     const [isFlatten, changeState] = useState(false);
     return (
-        <React.Fragment>
+        <div className={cn(styles.Toolbar, {[styles.Toolbar_flatten]: isFlatten})}>
             <button className={styles.FlatMenuBtn}
                     onClick={() => changeState(!isFlatten)}>
                 <i className={cn('fas', {
@@ -38,7 +38,7 @@ export default () => {
                     ['fa-angle-double-right']: isFlatten
                 })}/>
             </button>
-            <ul className={cn(styles.Toolbar, {[styles.Toolbar_flatten]: isFlatten})}>
+            <ul className={cn(styles.Toolbar__menu)}>
                 {toolbarItems.map((item, i) => {
                     return (
                         <li className={styles.Toolbar__item} key={i}>
@@ -50,6 +50,6 @@ export default () => {
                     );
                 })}
             </ul>
-        </React.Fragment>
+        </div>
     );
 }

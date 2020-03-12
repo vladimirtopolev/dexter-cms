@@ -1,0 +1,19 @@
+@import "../../css-variables";
+
+.Button{
+  color: #fff;
+  background: $primary-color;
+  font-size: 1rem;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  outline: none;
+
+  &:hover{
+    background: changePrimaryColorOpacity(0.8);
+  }
+
+ &:active{
+    outline: none;
+  }
+}

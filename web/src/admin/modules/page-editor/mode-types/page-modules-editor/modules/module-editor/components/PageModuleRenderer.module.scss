@@ -1,0 +1,42 @@
+@import "../../../../../../../css-variables";
+
+.PageModuleDashboard {
+  margin-top: 15px;
+}
+
+.PageModuleItem {
+  display: flex;
+  padding: 10px 15px;
+  margin-bottom: 6px;
+  background: changePrimaryColorOpacity(0.1);
+
+  &__dragIcon {
+    margin-right: 10px;
+    color: $primary-color;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    height: 2rem;
+  }
+
+  &__title {
+    flex-grow: 1;
+    font-size: 1rem;
+    line-height: 2rem;
+    height: 2rem;
+  }
+
+  &__toolbar {
+    height: 2rem;
+    line-height: 2rem;
+  }
+
+  &:hover {
+    background: changePrimaryColorOpacity(0.3);
+  }
+}
+
+.DropDownIcon{
+  color: $primary-color;
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
