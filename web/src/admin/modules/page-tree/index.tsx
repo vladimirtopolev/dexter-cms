@@ -41,6 +41,7 @@ export default () => {
                 actions.createPage<PageItem>(null, {
                     title: 'Title...',
                     locale: 'en-US',
+                    content: []
                 }, page => createNode(page));
             }}>Добавить
             </button>

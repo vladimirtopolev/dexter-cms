@@ -1,0 +1,95 @@
+
+.ArrayValue {
+  padding: 5px 10px 15px 10px;
+  border-bottom: 1px solid #efefef;
+
+  &__title {
+
+  }
+
+  &__emptyList {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  &__addItemBtn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__value {
+
+  }
+}
+
+.Item {
+  &__toolbar {
+
+  }
+
+
+  &__toolbarContainer {
+
+  }
+
+  &__dragCatcher {
+
+  }
+
+  &__content {
+    display: none;
+  }
+}
+
+.Toolbar {
+  display: flex;
+
+  &__left {
+    padding: 10px 10px 10px 20px;
+    flex-grow: 1;
+    border-radius: 20px;
+    margin-right: 10px;
+    display: flex;
+
+    &:hover {
+      background: #eaf7ff;
+    }
+  }
+
+  &__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__dragArea {
+    color: red;
+  }
+
+  &__title {
+    margin-left: 10px;
+    flex-grow: 1;
+  }
+
+  &__buttons {
+    display: none;
+  }
+}
+
+.Toolbar__left:hover .Toolbar__buttons {
+  display: block;
+}
+
+.Button {
+  background: none;
+  border: none;
+  color: #459fed;
+  font-size: 16px;
+  margin-right: 8px;
+  outline: none;
+
+  &:hover {
+    color: #4eb7f5;
+  }
+
+}

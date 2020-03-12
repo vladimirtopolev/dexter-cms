@@ -4,13 +4,16 @@ import {DragDropContext, Draggable, Droppable, DropResult} from 'react-beautiful
 import styles from './PageModuleRenderer.module.scss';
 import Dropdown from '../../../../../../../components/common/Dropdown';
 import {PageModule} from '../../../../../../types';
+import {EDIT_MODE} from '../../../../../index';
 
 type PageModuleRendererProps = {
     pageModules: Array<PageModule>,
     changePageModules: (pageModules: Array<PageModule>) => void,
+    changePageModuleIndex: (index: number)=> void,
+    changeMode: (mode: EDIT_MODE) => void
 }
 
-export default ({pageModules, changePageModules}: PageModuleRendererProps) => {
+export default ({pageModules, changePageModules, changeMode, changePageModuleIndex}: PageModuleRendererProps) => {
     const onDragEnd = (result: DropResult) => {
         const {destination, source } = result;
         if (!destination || destination.index === source.index) {
@@ -43,7 +46,6 @@ export default ({pageModules, changePageModules}: PageModuleRendererProps) => {
                                                     {module.title}
                                                 </div>
                                                 <div className={styles.PageModuleItem__toolbar}>
-
                                                     <Dropdown
                                                         dropdownItems={[
                                                             {
@@ -55,6 +57,8 @@ export default ({pageModules, changePageModules}: PageModuleRendererProps) => {
                                                             {
                                                                 title: 'Редактировать',
                                                                 onClick: () => {
+                                                                    changeMode(EDIT_MODE.MODULE_EDITOR);
+                                                                    changePageModuleIndex(i)
                                                                 }
                                                             }
                                                         ]}

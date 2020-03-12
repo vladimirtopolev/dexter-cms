@@ -69,7 +69,11 @@ const Node = (props: NodeContentRendererProps) => {
                        className={styles.contextMenu__link}
                        onClick={(e) => {
                            e.preventDefault();
-                           actions.createPage<PageItem>(props.node.content._id, {title: 'Children'}, page => props.createNode(page));
+                           const newPage = {
+                               title: 'Children',
+                               content: []
+                           };
+                           actions.createPage<PageItem>(props.node.content._id, newPage, page => props.createNode(page));
                        }}>
                         Создать страницу
                     </button>

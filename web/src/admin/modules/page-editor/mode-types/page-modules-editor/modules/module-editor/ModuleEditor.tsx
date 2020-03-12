@@ -5,12 +5,15 @@ import {BasePageModule, PageModule} from '../../../../../types';
 import {PageItem} from '../../../../../page-tree/types';
 import {v1 as uuidv1} from 'uuid';
 import Button from '../../../../../../components/common/Button';
+import {EDIT_MODE} from '../../../../index';
 
 type ModuleEditorProps = {
     page: PageItem | undefined,
-    changePage: (page: PageItem | ((page: (PageItem | undefined)) => PageItem | undefined)) => void
+    changePage: (page: PageItem | ((page: (PageItem | undefined)) => PageItem | undefined)) => void,
+    changePageModuleIndex: (index: number) => void,
+    changeMode: (mode: EDIT_MODE) => void
 }
-export default ({changePage, page}: ModuleEditorProps) => {
+export default ({changePage, page, changeMode, changePageModuleIndex}: ModuleEditorProps) => {
     const [isOpen, changeModalState] = useState(false);
     const toggle = () => changeModalState(!isOpen);
 
@@ -24,7 +27,8 @@ export default ({changePage, page}: ModuleEditorProps) => {
             content: getPageContent().concat({
                 ...moduleDescription,
                 id: uuidv1(),
-                state: null
+                state: {},
+                meta: {}
             })
         });
         toggle();
@@ -34,7 +38,7 @@ export default ({changePage, page}: ModuleEditorProps) => {
         page && changePage({
             ...page,
             content: pageModules
-        })
+        });
     };
 
     return (
@@ -44,7 +48,9 @@ export default ({changePage, page}: ModuleEditorProps) => {
                        toggle={toggle}
                        addModuleToPage={addModuleToPage}/>
             <PageModuleRenderer pageModules={getPageContent()}
-                                changePageModules={changePageModule}/>
+                                changePageModules={changePageModule}
+                                changePageModuleIndex={changePageModuleIndex}
+                                changeMode={changeMode}/>
         </div>
     );
 }

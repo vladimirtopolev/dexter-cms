@@ -5,5 +5,5 @@ export type PageItem = {
     title: string,
     parentPath: string | null,
     locale: string,
-    content?: PageModule[]
+    content: PageModule[]
 }

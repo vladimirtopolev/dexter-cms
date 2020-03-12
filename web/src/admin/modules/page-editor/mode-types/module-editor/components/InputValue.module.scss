@@ -1,0 +1,6 @@
+.Label {
+  display: flex;
+  &__description {
+    flex-grow: 1;
+  }
+}

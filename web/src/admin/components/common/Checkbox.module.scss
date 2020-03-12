@@ -1,0 +1,71 @@
+@import "../../css-variables";
+
+$checkbox-height: 18px;
+
+.Checkbox {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  width: $checkbox-height;
+  height: $checkbox-height;
+}
+
+.Checkbox__checkbox {
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  cursor: pointer;
+  height: $checkbox-height;
+  width: $checkbox-height;
+  top: 0;
+  left: 0;
+}
+
+.Checkbox__checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: $checkbox-height;
+  width: $checkbox-height;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid $primary-color;
+  box-sizing: border-box;
+}
+
+.Checkbox:hover .Checkbox__checkbox ~ .Checkbox__checkmark {
+  background-color: #fff;
+}
+
+.Checkbox .Checkbox__checkbox:checked ~ .Checkbox__checkmark {
+  background-color: $primary-color;
+
+}
+
+.Checkbox:hover .Checkbox__checkbox:checked ~ .Checkbox__checkmark {
+  background-color: changePrimaryColorOpacity(0.7);
+}
+
+.Checkbox__checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.Checkbox .Checkbox__checkbox:checked ~ .Checkbox__checkmark:after {
+  display: block;
+}
+
+.Checkbox .Checkbox__checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
