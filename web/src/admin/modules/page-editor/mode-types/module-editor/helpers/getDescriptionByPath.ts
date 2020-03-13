@@ -10,8 +10,9 @@ function getDescriptionByPath(description: BaseModuleDescription, path: string):
         return getDescriptionByPath(description.properties[handledPart], rest.join('.'));
     }
     if (isArrayDescription(description)) {
-        const [index, ...restArray] = rest;
-        return getDescriptionByPath(description.item, restArray.join('.'))
+        //const [index, ...restArray] = rest;
+        //console.log(index, restArray)
+        return getDescriptionByPath(description.item, rest.join('.'))
     }
     return description;
 }

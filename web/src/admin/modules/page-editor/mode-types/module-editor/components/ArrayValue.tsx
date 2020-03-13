@@ -3,7 +3,7 @@ import cn from 'classnames';
 import React from 'react';
 
 import {ArrayDescription} from '../../../../types';
-import {Draggable, DraggableProvided, Droppable, DragDropContext} from 'react-beautiful-dnd';
+import {Draggable, DraggableProvided, Droppable, DragDropContext, DropResult} from 'react-beautiful-dnd';
 import Button from '../../../../../components/common/Button';
 import {regenerateState} from '../helpers/regenerateState';
 
@@ -29,11 +29,10 @@ const ArrayValue = ({
 
     const renderArrayValue = (index: number, provided: DraggableProvided) => {
         const regeneratedValue = regenerateState({
-            path: `${path}.${index}`,
+            path: '',
             description: description.item,
             state: _.get(state, `${path}.${index}`)
         });
-        console.log('A REN VAL', regeneratedValue)
         const title = titleTemplate(regeneratedValue);
         return (
             <React.Fragment>
@@ -68,8 +67,15 @@ const ArrayValue = ({
     };
 
     // TODO
-    const onDragEnd = () => {
-
+    const onDragEnd = (result: DropResult) => {
+        const {destination, source } = result;
+        if (!destination || destination.index === source.index) {
+            return;
+        }
+        const values = Array.from(arrayValues);
+        values.splice(source.index, 1);
+        values.splice(destination.index, 0, arrayValues[source.index]);
+        changeState(path, values);
     };
 
     return (
@@ -78,7 +84,6 @@ const ArrayValue = ({
             <div className={styles.ArrayValue__toolbar}>
                 <Button onClick={() => {
                     const nextIndex = arrayValues.length;
-                    console.log('ADD TO ARRAY')
                     changeState(`${path}.${nextIndex}`, undefined);
                 }}>
                     Добавить элемент

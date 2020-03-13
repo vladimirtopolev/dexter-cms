@@ -12,6 +12,7 @@ const ObjectValue = ({
                          state,
                          ...rest
                      }: ObjectValueComponentProps) => {
+    console.log('OBJECT VALUE', path, description, state)
     return (
         <div>
             <div>

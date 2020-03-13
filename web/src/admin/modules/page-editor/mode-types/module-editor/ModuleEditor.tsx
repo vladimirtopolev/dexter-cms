@@ -13,20 +13,23 @@ export default ({page, currentPageModuleIndex, currentModulePath, changePage, ch
     if (!page) {
         return null;
     }
-
+    console.log('------');
     const chosenPage = page as PageItem;
 
     const {state, meta, description} = chosenPage.content[currentPageModuleIndex];
 
-    const currentState = _.get(chosenPage.content[currentPageModuleIndex].state, currentModulePath, {});
+    const currentState = currentModulePath === '' ?
+        chosenPage.content[currentPageModuleIndex].state
+        : _.get(chosenPage.content[currentPageModuleIndex].state, currentModulePath);
+
+    console.log('STATE-CURRENT_STATE-CURRENT_PATH', state, currentState);
+    console.log('PATH', currentModulePath);
     const currentMeta = chosenPage.content[currentPageModuleIndex].meta;
     const currentDescription = getDescriptionByPath(chosenPage.content[currentPageModuleIndex].description, currentModulePath);
 
-    console.log('------');
-    console.log('STATE', state);
-    console.log('PATH CURRENT', currentModulePath);
+
     const changeContent = (field: string, value: any) => {
-        console.log('NEW STATE', value);
+        console.log('NEW STATE', field, value);
         changePage((page) => {
             if (!page) return page;
             return {
@@ -38,18 +41,19 @@ export default ({page, currentPageModuleIndex, currentModulePath, changePage, ch
         });
     };
     const changeState = (path: string, value: any, deleteItem?: boolean) => {
-        console.log('CHANGE STATE', path, value, state);
-        let targetPath = path;
+        console.log('CHANGE STATE', path, value, state, deleteItem);
+        let targetPath = currentModulePath === '' ? path : [currentModulePath, path].join('.');
         let targetValue = value;
         if (deleteItem) {
-            const splitPath = path.split('.');
+            const splitPath = (currentModulePath === '' ? path : [currentModulePath, path].join('.')).split('.');
             const index = +splitPath[splitPath.length - 1];
             const arrayPath = splitPath.slice(0, splitPath.length - 1).join('.');
             targetPath = arrayPath;
             targetValue = _.get(state, arrayPath, []).filter((val: any, i: number) => i !== index);
         }
-        console.log('TARGET PATH-VALUE', targetPath, targetValue)
-        page && changeContent('state', _.setWith(_.clone(state || {}), targetPath, targetValue, _.clone));
+        const newVAL = _.setWith(_.clone(state), targetPath, targetValue, _.clone);
+        console.log('TARGET PATH-VALUE', targetPath, targetValue, newVAL);
+        page && changeContent('state', newVAL);
     };
 
     const changeMeta = (path: string, value: any) => {
@@ -64,13 +68,14 @@ export default ({page, currentPageModuleIndex, currentModulePath, changePage, ch
     return (
         <div className={styles.Editor}>
             {buildAdminEditElement({
-                description: description,
-                path: currentModulePath,
-                state: state,
+                description: currentDescription,
+                path: '',
+                state: currentState,
                 meta: meta,
                 changeState,
                 changeMeta,
-                changeModulePath
+                changeModulePath: (path: string) => changeModulePath(currentModulePath === ''
+                    ? path : [currentModulePath, path].join('.'))
             })}
         </div>
     );

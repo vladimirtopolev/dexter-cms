@@ -41,6 +41,20 @@ const modules: Array<BasePageModule> = [
                                 type: 'input',
                                 title: 'Role',
                                 defaultValue: 'Role',
+                            },
+                            array: {
+                                type: 'array',
+                                title: '<%=t%>',
+                                item: {
+                                    type: 'object',
+                                    properties: {
+                                        t: {
+                                            type:'input',
+                                            title: 'd',
+                                            defaultValue: ';'
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
