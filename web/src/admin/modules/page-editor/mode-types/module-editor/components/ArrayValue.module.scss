@@ -1,95 +1,56 @@
+@import "../../../../../css-variables";
 
 .ArrayValue {
-  padding: 5px 10px 15px 10px;
-  border-bottom: 1px solid #efefef;
+  margin-top: 40px;
 
   &__title {
-
+    font-size: 0.8rem;
+    color: $primary-color;
+    text-transform: uppercase;
   }
 
-  &__emptyList {
-    font-size: 14px;
-    margin-top: 10px;
-  }
-
-  &__addItemBtn {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  &__value {
-
-  }
-}
-
-.Item {
   &__toolbar {
-
   }
 
-
-  &__toolbarContainer {
-
-  }
-
-  &__dragCatcher {
-
-  }
-
-  &__content {
-    display: none;
+  &__dashboard {
+    margin-top: 15px;
   }
 }
 
-.Toolbar {
+
+.ValueItem {
   display: flex;
+  padding: 10px 15px;
+  margin-bottom: 6px;
+  background: changePrimaryColorOpacity(0.1);
 
-  &__left {
-    padding: 10px 10px 10px 20px;
-    flex-grow: 1;
-    border-radius: 20px;
+  &__dragIcon {
     margin-right: 10px;
-    display: flex;
-
-    &:hover {
-      background: #eaf7ff;
-    }
-  }
-
-  &__right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__dragArea {
-    color: red;
+    color: $primary-color;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    height: 2rem;
   }
 
   &__title {
-    margin-left: 10px;
     flex-grow: 1;
+    font-size: 1rem;
+    line-height: 2rem;
+    height: 2rem;
   }
 
-  &__buttons {
-    display: none;
+  &__toolbar {
+    height: 2rem;
+    line-height: 2rem;
   }
-}
-
-.Toolbar__left:hover .Toolbar__buttons {
-  display: block;
-}
-
-.Button {
-  background: none;
-  border: none;
-  color: #459fed;
-  font-size: 16px;
-  margin-right: 8px;
-  outline: none;
 
   &:hover {
-    color: #4eb7f5;
+    background: changePrimaryColorOpacity(0.3);
   }
+}
 
+.DropDownIcon {
+  color: $primary-color;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }

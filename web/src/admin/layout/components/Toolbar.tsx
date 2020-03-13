@@ -27,6 +27,8 @@ const toolbarItems = [
     }
 ];
 
+const flattenMenuIcon = 'fa-angle-double-right';
+const openedMenuIcon = 'fa-angle-double-left';
 export default () => {
     const [isFlatten, changeState] = useState(false);
     return (
@@ -34,8 +36,8 @@ export default () => {
             <button className={styles.FlatMenuBtn}
                     onClick={() => changeState(!isFlatten)}>
                 <i className={cn('fas', {
-                    ['fa-angle-double-left']: !isFlatten,
-                    ['fa-angle-double-right']: isFlatten
+                    [openedMenuIcon]: !isFlatten,
+                    [flattenMenuIcon]: isFlatten
                 })}/>
             </button>
             <ul className={cn(styles.Toolbar__menu)}>

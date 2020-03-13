@@ -18,9 +18,10 @@ export default ({children, dropdownItems}: DropdownProps) => {
         changeState(false);
     };
 
+
     useEffect(() => {
         document.addEventListener('click', closeMenu, {capture: true});
-        return () => document.removeEventListener('click', closeMenu);
+        return () => document.removeEventListener('click', closeMenu, {capture: true});
     }, []);
 
     return (

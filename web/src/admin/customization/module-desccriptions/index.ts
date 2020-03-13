@@ -28,22 +28,19 @@ const modules: Array<BasePageModule> = [
                 },
                 roles: {
                     type: 'array',
+                    title: '<%=name%>',
                     item: {
                         type: 'object',
                         properties: {
                             name: {
                                 type: 'input',
                                 title: 'Name',
-                                defaultValue: '',
+                                defaultValue: 'Студент',
                             },
-                            roles: {
-                                type: 'array',
-                                title: '',
-                                item: {
-                                    type: 'input',
-                                    title: 'NNN',
-                                    defaultValue: ''
-                                }
+                            role: {
+                                type: 'input',
+                                title: 'Role',
+                                defaultValue: 'Role',
                             }
                         }
                     }

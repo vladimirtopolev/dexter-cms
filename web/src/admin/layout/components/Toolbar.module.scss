@@ -5,6 +5,7 @@ $toolbar-width: 220px;
   $self: &;
   width: $toolbar-width;
   transition: all 1s;
+  overflow: hidden;
 
   &__menu{
     list-style: none;
@@ -13,6 +14,7 @@ $toolbar-width: 220px;
     width: $toolbar-width;
     position: relative;
     left:0;
+
   }
 
   &_flatten {

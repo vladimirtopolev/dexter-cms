@@ -6,6 +6,9 @@ type ToolbarProps = {
     children: ReactNode
 }
 
+const flattenMenuIcon = 'fa-angle-double-right';
+const openedMenuIcon = 'fa-angle-double-left';
+
 export default ({children}: ToolbarProps) => {
     const [isFlatten, changeMenuState] = useState(false);
     const toggle = () => changeMenuState(!isFlatten);
@@ -19,8 +22,8 @@ export default ({children}: ToolbarProps) => {
                 <button onClick={toggle}
                         className={styles.Toolbar__toggleBtn}>
                     <i className={cn('fas', {
-                        ['fa-angle-double-left']: !isFlatten,
-                        ['fa-angle-double-right']: isFlatten
+                        [openedMenuIcon]: !isFlatten,
+                        [flattenMenuIcon]: isFlatten
                     })}/>
                 </button>
             </div>

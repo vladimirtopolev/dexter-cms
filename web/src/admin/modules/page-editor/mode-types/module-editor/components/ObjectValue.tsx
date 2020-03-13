@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import buildAdminEditElement, {BuildAdminEditElementProps} from '../helpers/buildAdminEditElement';
 import {ObjectDescription} from '../../../../types';
@@ -13,17 +12,8 @@ const ObjectValue = ({
                          state,
                          ...rest
                      }: ObjectValueComponentProps) => {
-    //const checkboxValue = _.get(meta, `${path}.enabled`, true);
-    console.log(description);
     return (
         <div>
-            {/*}
-            <div>
-                Object
-                <input type="checkbox" value={checkboxValue}
-                       onChange={() => changeMeta(`${path}.enabled`, !checkboxValue)}/>
-            </div>
-            */}
             <div>
                 {Object.keys(description.properties)
                     .map(key => {
