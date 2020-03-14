@@ -1,0 +1,12 @@
+@import "../../../../../css-variables";
+
+.BackBtn{
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  vertical-align: top;
+  &:hover{
+    color: $primary-color;
+  }
+}

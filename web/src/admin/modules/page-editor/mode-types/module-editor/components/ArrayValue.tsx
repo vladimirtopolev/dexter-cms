@@ -40,7 +40,7 @@ const ArrayValue = ({
                     className={styles.ValueItem__dragIcon}>
                     <i className="fas fa-grip-vertical"/>
                 </div>
-                <div className={styles.ValueItem__title}>
+                <div className={styles.ValueItem__title} onDoubleClick={() => changeModulePath(`${path}.${index}`)}>
                     {title}
                 </div>
                 <div className={styles.ValueItem__toolbar}>

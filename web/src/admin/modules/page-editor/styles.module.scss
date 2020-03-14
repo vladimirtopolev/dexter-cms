@@ -28,3 +28,16 @@
     flex-grow: 1;
   }
 }
+
+
+.UserView{
+  width: 80%;
+  margin: 30px auto;
+  background: #ffff;
+
+  &__header{
+    width: 100%;
+    background: $gray-strong-color;
+    height:36px;
+  }
+}

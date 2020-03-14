@@ -10,11 +10,17 @@ import PageModulesEditor from './mode-types/page-modules-editor/PageModulesEdito
 import ModuleEditor from './mode-types/module-editor/ModuleEditor';
 
 import styles from './styles.module.scss';
+import buildUserViewElement from '../page-renderer/helpers/buildUserViewElement';
 
 export enum EDIT_MODE {
     PAGE_MODULES_EDITOR,
     MODULE_EDITOR,
 
+}
+
+type NavigationStep = {
+    mode: EDIT_MODE,
+    path: string
 }
 
 export type ModeRendererProps = {
@@ -25,7 +31,8 @@ export type ModeRendererProps = {
     changePage: (page: PageItem | ((page: (PageItem | undefined)) => PageItem | undefined)) => void,
     changePageModuleIndex: (index: number) => void,
     changeMode: (mode: EDIT_MODE) => void,
-    changeModulePath: (newPath: string) => void
+    changeModulePath: (newPath: string) => void,
+    backToPevNavigationStep: () => void
 }
 
 
@@ -41,10 +48,35 @@ const ModeRenderer = ({mode, ...rest}: ModeRendererProps) => {
 export default (props: any) => {
     const params = useParams<{ id: string }>();
 
+    const [historyNavigation, changeHistoryNavigation] = useState<NavigationStep[]>([{
+        mode: EDIT_MODE.PAGE_MODULES_EDITOR,
+        path: ''
+    }]);
+
     const [page, changePage] = useState<PageItem>();
-    const [mode, changeMode] = useState<EDIT_MODE>(EDIT_MODE.PAGE_MODULES_EDITOR);
+    const [mode, changeModeHandler] = useState<EDIT_MODE>(EDIT_MODE.PAGE_MODULES_EDITOR);
     const [currentPageModuleIndex, changePageModuleIndex] = useState<number>(0);
-    const [currentModulePath, changeModulePath] = useState<string>('');
+    const [currentModulePath, changeModulePathHandler] = useState<string>('');
+
+    const changeModulePath = (path: string) => {
+        changeModulePathHandler(path);
+        changeHistoryNavigation([...historyNavigation, {path, mode}]);
+    };
+
+    const changeMode = (mode: EDIT_MODE) =>{
+        changeModeHandler(mode);
+        changeHistoryNavigation([...historyNavigation, {mode, path: currentModulePath}])
+    };
+
+    const backToPrevNavigationStep = () => {
+        const newHistory = historyNavigation.slice(0, historyNavigation.length - 1);
+        console.log('--', historyNavigation, newHistory);
+        const newNavigationItem = newHistory[newHistory.length - 1];
+        changeHistoryNavigation(newHistory);
+        changeModulePathHandler(newNavigationItem.path);
+        changeModeHandler(newNavigationItem.mode);
+    };
+
 
     useEffect(() => {
         actions.getPage<PageItem>(params.id, (page) => {
@@ -72,10 +104,17 @@ export default (props: any) => {
                                       changeMode={changeMode}
                                       changePageModuleIndex={changePageModuleIndex}
                                       changeModulePath={changeModulePath}
+                                      backToPevNavigationStep={backToPrevNavigationStep}
                         />
                     </Toolbar>
                 </div>
-                <div className={styles.PageEditor__content}>Content</div>
+                <div className={styles.PageEditor__content}>
+                    <div className={styles.UserView}>
+                        <div className={styles.UserView__header}>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     );

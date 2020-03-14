@@ -8,7 +8,6 @@ interface GenerateStateProps {
 }
 
 export const regenerateState = ({description, path, state}: GenerateStateProps): any => {
-    console.log('REG', description, path, state)
     if (isObjectDescription(description)) {
         return Object.keys(description.properties)
             .reduce((memo, key) => {

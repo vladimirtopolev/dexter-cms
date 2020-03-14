@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface BaseModuleDescription {
     type: string,
-    component?: React.ComponentClass<any, any> | React.FunctionComponent<any>,
+    component?: string,
     title?: string,
     [extraProps: string]: any
 }

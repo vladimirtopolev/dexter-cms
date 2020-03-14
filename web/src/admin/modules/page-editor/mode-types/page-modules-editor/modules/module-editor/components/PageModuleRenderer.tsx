@@ -9,13 +9,13 @@ import {EDIT_MODE} from '../../../../../index';
 type PageModuleRendererProps = {
     pageModules: Array<PageModule>,
     changePageModules: (pageModules: Array<PageModule>) => void,
-    changePageModuleIndex: (index: number)=> void,
+    changePageModuleIndex: (index: number) => void,
     changeMode: (mode: EDIT_MODE) => void
 }
 
 export default ({pageModules, changePageModules, changeMode, changePageModuleIndex}: PageModuleRendererProps) => {
     const onDragEnd = (result: DropResult) => {
-        const {destination, source } = result;
+        const {destination, source} = result;
         if (!destination || destination.index === source.index) {
             return;
         }
@@ -42,7 +42,11 @@ export default ({pageModules, changePageModules, changeMode, changePageModuleInd
                                                      {...provided.dragHandleProps}>
                                                     <i className="fas fa-grip-vertical"/>
                                                 </div>
-                                                <div className={styles.PageModuleItem__title}>
+                                                <div className={styles.PageModuleItem__title}
+                                                     onDoubleClick={() => {
+                                                         changeMode(EDIT_MODE.MODULE_EDITOR);
+                                                         changePageModuleIndex(i);
+                                                     }}>
                                                     {module.title}
                                                 </div>
                                                 <div className={styles.PageModuleItem__toolbar}>
@@ -58,7 +62,7 @@ export default ({pageModules, changePageModules, changeMode, changePageModuleInd
                                                                 title: 'Редактировать',
                                                                 onClick: () => {
                                                                     changeMode(EDIT_MODE.MODULE_EDITOR);
-                                                                    changePageModuleIndex(i)
+                                                                    changePageModuleIndex(i);
                                                                 }
                                                             }
                                                         ]}

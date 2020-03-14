@@ -9,10 +9,12 @@ const modules: Array<BasePageModule> = [
                 title1: {
                     type: 'input',
                     title: 'Заголовок',
-                    defaultValue: ''
+                    defaultValue: '',
+                    component: 'TitleComponent'
                 },
                 user: {
                     type: 'object',
+                    component: 'UserComponent',
                     properties: {
                         name: {
                             type: 'input',
@@ -31,33 +33,20 @@ const modules: Array<BasePageModule> = [
                     title: '<%=name%>',
                     item: {
                         type: 'object',
+                        component: 'UserComponent',
                         properties: {
                             name: {
                                 type: 'input',
                                 title: 'Name',
-                                defaultValue: 'Студент',
+                                defaultValue: ''
                             },
-                            role: {
+                            email: {
                                 type: 'input',
-                                title: 'Role',
-                                defaultValue: 'Role',
-                            },
-                            array: {
-                                type: 'array',
-                                title: '<%=t%>',
-                                item: {
-                                    type: 'object',
-                                    properties: {
-                                        t: {
-                                            type:'input',
-                                            title: 'd',
-                                            defaultValue: ';'
-                                        }
-                                    }
-                                }
+                                title: 'Email',
+                                defaultValue: '',
                             }
-                        }
-                    }
+                        },
+                    },
                 }
             }
         }
