@@ -1,4 +1,6 @@
 import * as express from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
 import * as mongoose from 'mongoose';
 import {Application, Router} from 'express';
 import * as bodyParser from 'body-parser';
@@ -26,12 +28,15 @@ export default class App {
     }
 
     initDefaultMiddlewares() {
+        this.app.use( '/assets', express.static(path.resolve(__dirname, '../../build/web/assets')));
+
+
         // parse application/json and look for raw text
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: true}));
         this.app.use(bodyParser.text());
         this.app.use(bodyParser.json({type: 'application/json'}));
-        this.app.use(cors())
+        this.app.use(cors());
 
         this.app.use(formData.parse());
     }
@@ -45,7 +50,21 @@ export default class App {
     getApp(): Application {
         this.app = express();
         this.initDefaultMiddlewares();
+
         this.initRoutes();
+
+        // ADMIN panel without SSR
+        this.app.use('*', (req, res) => {
+            fs.createReadStream(path.resolve(__dirname, '../../build/web/index.html'))
+                .pipe(res);
+        });
+
+
+        /*
+        this.app.use('*', (req, res) => {
+            res.send('sdfsdf')
+        });*/
+
 
         return this.app;
     }

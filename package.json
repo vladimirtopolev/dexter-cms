@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "web:dev": "cd ./web && /node_modules/bin/react-scripts build"
+    "web:dev:build": "cd ./web && npm run web:dev:build"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.42.0"
+  }
 }

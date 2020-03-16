@@ -29,7 +29,7 @@ const Node = (props: NodeContentRendererProps) => {
     return (
         <div className={styles.nodeContent}
              onDoubleClick={() => {
-                 history.push(`/pages/${props.node.content._id}`)
+                 history.push(`/admin/pages/${props.node.content._id}`)
              }}
              onContextMenu={(e) => {
                  const parentEl = (props.parentRef as RefObject<HTMLElement>).current as HTMLElement;

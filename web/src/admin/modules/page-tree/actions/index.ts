@@ -23,9 +23,17 @@ export function deletePage(_id: string, callback?: () => void) {
         .then(() => callback && callback());
 }
 
-export function getPage<T>(id: string, callback?: (page: T) => void) {
-    axios.get(`${config.path}/api/pages/${id}`)
-        .then(res => callback && callback(res.data));
+export function getPage<T>(id: string, callback?: (page: T) => void): Promise<T> {
+    return axios.get<T>(`${config.path}/api/pages/${id}`)
+        .then(res => {
+            callback && callback(res.data);
+            return res.data;
+        });
+}
+
+export function getPagePath(id: string): Promise<string> {
+    return axios.get(`${config.path}/api/pages`)
+        .then()
 }
 
 export function updatePage<T>(id: string, page: T) {

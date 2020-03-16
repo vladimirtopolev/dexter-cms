@@ -19,6 +19,7 @@ export default ({page, changePage, changeMode, changePageModuleIndex }: ModeRend
                             label="Заголовок"
                             onChange={changePageFiled('title')}
                             name="title"/>}
+            {page && page.path}
             <ModuleEditor page={page}
                           changePage={changePage}
                           changeMode={changeMode}

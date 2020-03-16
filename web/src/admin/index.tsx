@@ -15,9 +15,9 @@ export default () => {
     return (
         <Layout>
             <Switch>
-                <Route component={PagesTree} path="/pages-tree"/>
-                <Route component={PagesEditor} path="/pages/:id"/>
-                <Route component={Navigation} path="/navigation"/>
+                <Route component={PagesTree} path="/admin/pages-tree"/>
+                <Route component={PagesEditor} path="/admin/pages/:id"/>
+                <Route component={Navigation} path="/admin/navigation"/>
             </Switch>
         </Layout>
     );

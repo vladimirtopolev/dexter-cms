@@ -8,12 +8,12 @@ const toolbarItems = [
     {
         name: 'Страницы',
         icon: 'fas fa-copy',
-        path: '/pages-tree'
+        path: '/admin/pages-tree'
     },
     {
         name: 'Навигация',
         icon: 'fas fa-bars',
-        path: '/navigation'
+        path: '/admin/navigation'
     },
     {
         name: 'Статистика',

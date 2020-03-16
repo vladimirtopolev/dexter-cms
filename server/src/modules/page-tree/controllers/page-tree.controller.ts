@@ -1,9 +1,11 @@
 import {Request, Response} from 'express';
+import * as _ from 'lodash';
 import {PageEntityModel, PageEntityDocument} from '../models/page-tree.model';
 import buildTree, {TreeEntity} from '../helpers/buildTree';
 import findParentNode from '../helpers/findParentNode';
+import * as converter from 'cyrillic-to-latin';
 import {Types} from 'mongoose';
-import findNode from '../helpers/findNode';
+import findNodeByCondition from '../helpers/findNodeByCondition';
 
 class PageTreeController {
     treeEntities: TreeEntity<PageEntityDocument>[] = [];
@@ -24,6 +26,20 @@ class PageTreeController {
         res.json(this.treeEntities);
     };
 
+    getEntityByPath = (req: Request, res: Response) => {
+        const {path} = req.query;
+        if (!path) {
+            return res.status(404).json({error: 'You should set path variable in request query'});
+        }
+        const partialParts = path.split('/');
+
+        // show root tree
+        if (partialParts[0] === '') {
+            return this._getEntityById(this.treeEntities[0].content._id, res);
+        }
+        res.json({});
+    };
+
     addPageInTree = (parentPath: string | null, page: PageEntityDocument) => {
         const pageTreeEntity: TreeEntity<PageEntityDocument> = {
             content: page,
@@ -37,6 +53,11 @@ class PageTreeController {
         }
     };
 
+    getParentPath = async (req: Request, res: Response) => {
+        const page = await PageEntityModel.findById(req.params.id);
+
+    };
+
     deletePageFromTree = (page: PageEntityDocument) => {
         if (page.parentPath === null) {
             this.treeEntities = this.treeEntities.filter(p => p.content._id.toString() !== page._id.toString());
@@ -47,8 +68,9 @@ class PageTreeController {
     };
 
     updatePageInTree = (page: PageEntityDocument) => {
-        const node = findNode(page, this.treeEntities);
-        if (node){
+        const condition = (p: TreeEntity<PageEntityDocument>) => p.content._id.toString() === page._id.toString();
+        const node = findNodeByCondition(condition, this.treeEntities);
+        if (node) {
             node.content = page;
         }
     };
@@ -61,6 +83,7 @@ class PageTreeController {
                 locale,
                 parentPath,
                 title,
+                path: _.kebabCase(converter(title)),
                 content
             });
             this.addPageInTree(parentPath, savedPage.toObject());
@@ -84,9 +107,13 @@ class PageTreeController {
         }
     };
 
-    getEntity = async (req: Request, res: Response) => {
+    getEntity = (req: Request, res: Response) => {
+        const {id} = req.params;
+        this._getEntityById(id, res);
+    };
+
+    _getEntityById = async (id: string, res: Response) => {
         try {
-            const {id} = req.params;
             const entity = await PageEntityModel.findById(id);
             res.json(entity);
         } catch (e) {

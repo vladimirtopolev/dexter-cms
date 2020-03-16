@@ -79,9 +79,10 @@ export default (props: any) => {
 
 
     useEffect(() => {
-        actions.getPage<PageItem>(params.id, (page) => {
-            changePage(page);
-        });
+        actions.getPage<PageItem>(params.id)
+            .then(page => {
+                changePage(page);
+            });
     }, [params.id]);
 
     return (

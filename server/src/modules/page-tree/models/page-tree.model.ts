@@ -6,12 +6,14 @@ export interface PageEntityDocument extends mongoose.Document{
     content: any,
     parentPath: any,
     locale: string
+    path: string
 }
 
 export const PageEntitySchema = new Schema<PageEntityDocument>({
     title: String,
     parentPath: Schema.Types.ObjectId,
     content: Schema.Types.Mixed,
+    path: String,
     locale: String
 });
 
