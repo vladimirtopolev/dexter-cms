@@ -5,7 +5,7 @@ export const Title: React.FC<BaseUserComponentProps> = ({state, style, renderChi
     //console.log(state)
     return (
         <div {...rest} style={{...style, padding: '10px'}}>
-            Title: {state}
+            Title: {JSON.stringify(state)}
         </div>
     );
 };

@@ -26,6 +26,7 @@ type NavigationStep = {
 export type ModeRendererProps = {
     mode: EDIT_MODE,
     page: PageItem | undefined,
+    pagePath: string,
     currentPageModuleIndex: number,
     currentModulePath: string,
     changePage: (page: PageItem | ((page: (PageItem | undefined)) => PageItem | undefined)) => void,
@@ -54,6 +55,7 @@ export default (props: any) => {
     }]);
 
     const [page, changePage] = useState<PageItem>();
+    const [pagePath, changePagePath] = useState();
     const [mode, changeModeHandler] = useState<EDIT_MODE>(EDIT_MODE.PAGE_MODULES_EDITOR);
     const [currentPageModuleIndex, changePageModuleIndex] = useState<number>(0);
     const [currentModulePath, changeModulePathHandler] = useState<string>('');
@@ -63,9 +65,9 @@ export default (props: any) => {
         changeHistoryNavigation([...historyNavigation, {path, mode}]);
     };
 
-    const changeMode = (mode: EDIT_MODE) =>{
+    const changeMode = (mode: EDIT_MODE) => {
         changeModeHandler(mode);
-        changeHistoryNavigation([...historyNavigation, {mode, path: currentModulePath}])
+        changeHistoryNavigation([...historyNavigation, {mode, path: currentModulePath}]);
     };
 
     const backToPrevNavigationStep = () => {
@@ -82,6 +84,11 @@ export default (props: any) => {
         actions.getPage<PageItem>(params.id)
             .then(page => {
                 changePage(page);
+                return actions.getPagePath(page._id);
+            })
+            .then(path => {
+                console.log(path);
+                changePagePath(path);
             });
     }, [params.id]);
 
@@ -99,6 +106,7 @@ export default (props: any) => {
                     <Toolbar>
                         <ModeRenderer mode={mode}
                                       page={page}
+                                      pagePath={pagePath}
                                       currentPageModuleIndex={currentPageModuleIndex}
                                       currentModulePath={currentModulePath}
                                       changePage={changePage}
@@ -113,7 +121,6 @@ export default (props: any) => {
                     <div className={styles.UserView}>
                         <div className={styles.UserView__header}>
                         </div>
-
                     </div>
                 </div>
             </div>

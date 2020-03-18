@@ -32,8 +32,8 @@ export function getPage<T>(id: string, callback?: (page: T) => void): Promise<T>
 }
 
 export function getPagePath(id: string): Promise<string> {
-    return axios.get(`${config.path}/api/pages`)
-        .then()
+    return axios.get<{ path: string }>(`${config.path}/api/pages/${id}/path`)
+        .then(res => res.data.path);
 }
 
 export function updatePage<T>(id: string, page: T) {

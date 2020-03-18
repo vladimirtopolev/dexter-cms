@@ -24,7 +24,6 @@ const InputValue = ({
                     }: InputValueComponentProps) => {
 
     const isEnabled = _.get(meta, `${path}.enabled`, true);
-    console.log('PATH', path);
 
     const label = () => (
         <div className={styles.Label}>

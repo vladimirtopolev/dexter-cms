@@ -11,3 +11,10 @@ $gray-strong-color: #1d2226;
 @function changePrimaryColorOpacity($opacity){
   @return rgba(0, 172, 172, $opacity)
 }
+
+.form-label{
+  color: #00acac;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin: 0;
+}

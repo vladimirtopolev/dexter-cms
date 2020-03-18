@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {BaseUserComponentProps} from '../../../../user/component-mapper';
+import {BaseUserComponentProps} from '../../../../client/components/component-mapper';
 
 type WrappedUserViewProps = {
     Component: React.ComponentType<BaseUserComponentProps>,

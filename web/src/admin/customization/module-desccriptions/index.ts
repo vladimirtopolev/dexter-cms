@@ -2,6 +2,29 @@ import {BasePageModule} from '../../modules/types';
 
 const modules: Array<BasePageModule> = [
     {
+        title: 'Промо модуль',
+        description: {
+            type: 'object',
+            properties: {
+                image: {
+                    type: 'image',
+                    title: 'Изображение'
+                },
+                title: {
+                    type: 'input',
+                    title: 'Заголовок',
+                    defaultValue: ''
+                },
+                subtitle: {
+                    type: 'input',
+                    title: 'Заголовок',
+                    defaultValue: ''
+                },
+
+            }
+        }
+    },
+    {
         title: 'Promo',
         description: {
             type: 'object',

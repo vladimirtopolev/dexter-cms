@@ -1,0 +1,12 @@
+@import "../../../../../../css-variables";
+
+.ImageValue {
+
+  &__title {
+    @extend .form-label;
+  }
+
+  &__content {
+
+  }
+}

@@ -1,8 +1,15 @@
 import React from 'react';
-import {BaseModuleDescription, isArrayDescription, isInputDescription, isObjectDescription} from '../../../../types';
-import ObjectValue from '../components/ObjectValue';
-import InputValue from '../components/InputValue';
-import ArrayValue from '../components/ArrayValue';
+import {
+    BaseModuleDescription,
+    isArrayDescription,
+    isImageDescription,
+    isInputDescription,
+    isObjectDescription
+} from '../../../../types';
+import ObjectValue from '../value-types/ObjectValue';
+import InputValue from '../value-types/InputValue';
+import ArrayValue from '../value-types/ArrayValue';
+import ImageValue from '../value-types/image-value/ImageValue';
 
 
 export type BuildAdminEditElementProps = {
@@ -26,6 +33,9 @@ export default ({description, ...rest}: BuildAdminEditElementProps) => {
     }
     if (isArrayDescription(description)) {
         return <ArrayValue description={description} {...rest}/>;
+    }
+    if (isImageDescription(description)){
+        return <ImageValue description={description} {...rest}/>
     }
     return null;
 }

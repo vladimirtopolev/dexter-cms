@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {BaseModuleDescription, isArrayDescription, isInputDescription, isObjectDescription} from '../../types';
 import WrappedUserView from './WrappedUserView';
-import {componentMapper} from '../../../../user/component-mapper';
+import {componentMapper} from '../../../../client/components/component-mapper';
 
 type BuildUserViewElementProps = {
     path: string,

@@ -1,10 +1,11 @@
-import {Title} from './components/Title';
-import {User} from './components/User'
+import React from 'react';
+import {Title} from './title/Title';
+import {User} from './user/User'
 
 export type BaseUserComponentProps = {
     state: any,
     style?: any,
-    renderChildrenComponents?: () => React.ReactNode[] | null,
+    renderChildrenComponents?: () => React.ReactNode[] | React.ReactNode | null,
     [extraProps: string]: any
 }
 

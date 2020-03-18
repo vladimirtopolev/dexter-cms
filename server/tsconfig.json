@@ -13,7 +13,10 @@
       "es2017",
       "dom"
     ],
+    "typeRoots": [ "node_modules/@types", "src/@types"],
     "outDir": "../build/server",
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "src/test"]
 }

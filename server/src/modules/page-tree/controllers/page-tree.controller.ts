@@ -3,6 +3,10 @@ import * as _ from 'lodash';
 import {PageEntityModel, PageEntityDocument} from '../models/page-tree.model';
 import buildTree, {TreeEntity} from '../helpers/buildTree';
 import findParentNode from '../helpers/findParentNode';
+import getPagePath from '../helpers/getPagePath';
+import getPageByPath from '../helpers/getPageByPath';
+
+
 import * as converter from 'cyrillic-to-latin';
 import {Types} from 'mongoose';
 import findNodeByCondition from '../helpers/findNodeByCondition';
@@ -31,13 +35,7 @@ class PageTreeController {
         if (!path) {
             return res.status(404).json({error: 'You should set path variable in request query'});
         }
-        const partialParts = path.split('/');
-
-        // show root tree
-        if (partialParts[0] === '') {
-            return this._getEntityById(this.treeEntities[0].content._id, res);
-        }
-        res.json({});
+        res.json(getPageByPath(path, this.treeEntities));
     };
 
     addPageInTree = (parentPath: string | null, page: PageEntityDocument) => {
@@ -53,9 +51,9 @@ class PageTreeController {
         }
     };
 
-    getParentPath = async (req: Request, res: Response) => {
-        const page = await PageEntityModel.findById(req.params.id);
-
+    getEntityPath = async (req: Request, res: Response) => {
+        const id = req.params.id;
+        res.json({path: getPagePath(id, this.treeEntities)});
     };
 
     deletePageFromTree = (page: PageEntityDocument) => {
