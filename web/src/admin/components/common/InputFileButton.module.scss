@@ -1,0 +1,33 @@
+@import "../../css-variables";
+
+.InputFile {
+
+  &__file {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  &__label {
+    color: #fff;
+    background: $primary-color;
+    font-size: 1rem;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    outline: none;
+
+    &:hover {
+      background: changePrimaryColorOpacity(0.8);
+    }
+
+    &:active {
+      outline: none;
+    }
+  }
+}

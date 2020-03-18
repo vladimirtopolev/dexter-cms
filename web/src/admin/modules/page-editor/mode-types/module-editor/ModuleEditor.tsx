@@ -35,6 +35,7 @@ export default ({page, currentPageModuleIndex, currentModulePath, changePage, ch
     };
     const changeState = (path: string, value: any, deleteItem?: boolean) => {
         let targetPath = currentModulePath === '' ? path : [currentModulePath, path].join('.');
+        console.log('CHANGE STATE', targetPath, value, state);
         let targetValue = value;
         if (deleteItem) {
             const splitPath = (currentModulePath === '' ? path : [currentModulePath, path].join('.')).split('.');
@@ -43,7 +44,8 @@ export default ({page, currentPageModuleIndex, currentModulePath, changePage, ch
             targetPath = arrayPath;
             targetValue = _.get(state, arrayPath, []).filter((val: any, i: number) => i !== index);
         }
-        const newVAL = _.setWith(_.clone(state), targetPath, targetValue, _.clone);
+        const newVAL = _.setWith(_.clone(state || {}), targetPath, targetValue, _.clone);
+        console.log('NEW STATE:', newVAL)
         page && changeContent('state', newVAL);
     };
 

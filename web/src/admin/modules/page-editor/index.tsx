@@ -10,7 +10,6 @@ import PageModulesEditor from './mode-types/page-modules-editor/PageModulesEdito
 import ModuleEditor from './mode-types/module-editor/ModuleEditor';
 
 import styles from './styles.module.scss';
-import buildUserViewElement from '../page-renderer/helpers/buildUserViewElement';
 
 export enum EDIT_MODE {
     PAGE_MODULES_EDITOR,
@@ -26,7 +25,7 @@ type NavigationStep = {
 export type ModeRendererProps = {
     mode: EDIT_MODE,
     page: PageItem | undefined,
-    pagePath: string,
+    pagePath: string | undefined,
     currentPageModuleIndex: number,
     currentModulePath: string,
     changePage: (page: PageItem | ((page: (PageItem | undefined)) => PageItem | undefined)) => void,
@@ -55,7 +54,7 @@ export default (props: any) => {
     }]);
 
     const [page, changePage] = useState<PageItem>();
-    const [pagePath, changePagePath] = useState();
+    const [pagePath, changePagePath] = useState<string>();
     const [mode, changeModeHandler] = useState<EDIT_MODE>(EDIT_MODE.PAGE_MODULES_EDITOR);
     const [currentPageModuleIndex, changePageModuleIndex] = useState<number>(0);
     const [currentModulePath, changeModulePathHandler] = useState<string>('');
@@ -72,7 +71,6 @@ export default (props: any) => {
 
     const backToPrevNavigationStep = () => {
         const newHistory = historyNavigation.slice(0, historyNavigation.length - 1);
-        console.log('--', historyNavigation, newHistory);
         const newNavigationItem = newHistory[newHistory.length - 1];
         changeHistoryNavigation(newHistory);
         changeModulePathHandler(newNavigationItem.path);
@@ -87,7 +85,6 @@ export default (props: any) => {
                 return actions.getPagePath(page._id);
             })
             .then(path => {
-                console.log(path);
                 changePagePath(path);
             });
     }, [params.id]);
