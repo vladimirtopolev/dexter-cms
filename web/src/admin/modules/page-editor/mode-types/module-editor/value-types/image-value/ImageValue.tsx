@@ -3,6 +3,7 @@ import _ from 'lodash';
 import {BuildAdminEditElementProps} from '../../helpers/buildAdminEditElement';
 import {ImageDescription} from '../../../../../types';
 import * as actions from '../../actions';
+import 'react-image-crop/dist/ReactCrop.css';
 
 import styles from './ImageValue.module.scss';
 import Button from '../../../../../../components/common/Button';
@@ -196,7 +197,7 @@ function CropImageUploader({changeUploadingImageStatus, src, saveImageInCloudina
     return (
         <React.Fragment>
             {src && (
-                <div className={styles.ImageModal__previewCroppingImage}>
+
                     <ReactCrop
                         src={src}
                         crop={crop}
@@ -206,11 +207,11 @@ function CropImageUploader({changeUploadingImageStatus, src, saveImageInCloudina
                         imageStyle={{width: '100%', maxHeight: 'none'}}
                         className={styles.ImageModal__previewContainer}
                     />
-                    {/* {isUploadingImage && <Spinner className={styles.ImageModal__previewImage_spinner}/>}*/}
-                </div>
+
+
             )}
             <div className={styles.ImageModal__buttons}>
-
+                <Button onClick={onSaveImage} disabled={isUploadingImage}>Сохранить</Button>
             </div>
         </React.Fragment>
     );

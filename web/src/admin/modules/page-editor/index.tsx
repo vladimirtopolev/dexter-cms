@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 
 import Toolbar from './components/Toolbar';
 import Button from '../../components/common/Button';
+import PageView from './components/PageView';
 import {PageItem} from '../page-tree/types';
 import * as actions from '../page-tree/actions';
 
@@ -54,6 +55,7 @@ export default (props: any) => {
     }]);
 
     const [page, changePage] = useState<PageItem>();
+    const [timestamp, changeTimestamp] = useState<number>(0);
     const [pagePath, changePagePath] = useState<string>();
     const [mode, changeModeHandler] = useState<EDIT_MODE>(EDIT_MODE.PAGE_MODULES_EDITOR);
     const [currentPageModuleIndex, changePageModuleIndex] = useState<number>(0);
@@ -115,10 +117,7 @@ export default (props: any) => {
                     </Toolbar>
                 </div>
                 <div className={styles.PageEditor__content}>
-                    <div className={styles.UserView}>
-                        <div className={styles.UserView__header}>
-                        </div>
-                    </div>
+                    <PageView pagePath={pagePath} key={timestamp} page={page}/>
                 </div>
             </div>
         </div>

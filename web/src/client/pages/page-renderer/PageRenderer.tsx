@@ -17,6 +17,16 @@ export default (props: any) => {
                 changePage(page);
             });
     }, [location.pathname]);
+
+    useEffect(() => {
+        const messageHandler = (e: any) => {
+            console.log('-----MESSAGE RECIEVED', e.detail.page);
+            changePage(e.detail.page)
+        };
+        console.log('IFRAME');
+        window.addEventListener('custom', messageHandler);
+        return () => window.removeEventListener('custom', messageHandler);
+    });
     return (
         <div>
             {page && page.content && page.content.map((module, i) => {

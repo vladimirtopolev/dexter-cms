@@ -1,0 +1,29 @@
+@import "../../../css-variables";
+
+.PageView {
+  width: 80%;
+  margin: 30px auto;
+  background: #ffff;
+
+  &__header {
+    width: 100%;
+    background: $gray-strong-color;
+    height: 36px;
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+    padding-top: 60%;
+  }
+
+  &__iframe{
+    width: 1680px;
+    height: 1008px;
+    transform-origin: 0 0;
+    top:0;
+    left: 0;
+    position: absolute;
+    border: none;
+  }
+}

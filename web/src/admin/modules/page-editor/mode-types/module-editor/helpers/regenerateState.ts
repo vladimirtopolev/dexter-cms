@@ -36,5 +36,5 @@ export const regenerateState = ({description, path, state}: GenerateStateProps):
                 });
             });
     }
-    return null;
+    return _.get(state, path);
 };

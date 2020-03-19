@@ -1,6 +1,8 @@
 import React from 'react';
 import {Title} from './title/Title';
-import {User} from './user/User'
+import {User} from './user/User';
+
+import Promo from '../modules/promo/Promo'
 
 export type BaseUserComponentProps = {
     state: any,
@@ -11,5 +13,6 @@ export type BaseUserComponentProps = {
 
 export const componentMapper: {[k: string]: React.ComponentType<BaseUserComponentProps>} = {
     'TitleComponent': Title,
-    'UserComponent': User
+    'UserComponent': User,
+    'PromoModule': Promo
 };

@@ -5,6 +5,7 @@ const modules: Array<BasePageModule> = [
         title: 'Промо модуль',
         description: {
             type: 'object',
+            component: 'PromoModule',
             properties: {
                 image: {
                     type: 'image',
@@ -13,7 +14,7 @@ const modules: Array<BasePageModule> = [
                 title: {
                     type: 'input',
                     title: 'Заголовок',
-                    defaultValue: ''
+                    defaultValue: '',
                 },
                 subtitle: {
                     type: 'input',
