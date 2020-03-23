@@ -73,7 +73,7 @@ const Node = (props: NodeContentRendererProps) => {
                                title: 'Children',
                                content: []
                            };
-                           actions.createPage<PageItem>(props.node.content._id, newPage, page => props.createNode(page));
+                           actions.createPage<PageItem>(props.node.content._id, newPage, page => props.createNode && props.createNode(page));
                        }}>
                         Создать страницу
                     </button>
@@ -83,7 +83,7 @@ const Node = (props: NodeContentRendererProps) => {
                        className={styles.contextMenu__link}
                        onClick={(e) => {
                            e.preventDefault();
-                           actions.deletePage(props.node.content._id, () => props.deleteNode(props.node));
+                           actions.deletePage(props.node.content._id, () => props.deleteNode && props.deleteNode(props.node));
                        }}>
 
                         Удалить

@@ -3,14 +3,14 @@ import {
     BaseModuleDescription,
     isArrayDescription,
     isImageDescription,
-    isInputDescription,
+    isInputDescription, isLinkDescription,
     isObjectDescription
 } from '../../../../types';
 import ObjectValue from '../value-types/ObjectValue';
 import InputValue from '../value-types/InputValue';
 import ArrayValue from '../value-types/ArrayValue';
 import ImageValue from '../value-types/image-value/ImageValue';
-
+import LinkValue from '../value-types/link-value/LinkValue';
 
 export type BuildAdminEditElementProps = {
     nestedLevel: number,
@@ -36,6 +36,9 @@ export default ({description, ...rest}: BuildAdminEditElementProps) => {
     }
     if (isImageDescription(description)){
         return <ImageValue description={description} {...rest}/>
+    }
+    if(isLinkDescription(description)){
+        return <LinkValue description={description} {...rest}/>
     }
     return null;
 }

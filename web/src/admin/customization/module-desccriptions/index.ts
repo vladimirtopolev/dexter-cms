@@ -21,6 +21,9 @@ const modules: Array<BasePageModule> = [
                     title: 'Заголовок',
                     defaultValue: ''
                 },
+                link: {
+                    type: 'link'
+                }
 
             }
         }

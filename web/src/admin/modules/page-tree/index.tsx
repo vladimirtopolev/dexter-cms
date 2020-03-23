@@ -25,26 +25,29 @@ export default () => {
                 children: []
             };
 
-            if (newNode.parentPath === null){
+            if (newNode.parentPath === null) {
                 return [...prevTree, treeEntity];
             }
             const parentNode = findParentNode(newNode.parentPath, prevTree) as TreeEntity<PageItem>;
             parentNode.expanded = true;
             parentNode.children.push(treeEntity);
             return [...prevTree];
-        })
+        });
     };
 
     return (
         <div>
-            <button onClick={() => {
-                actions.createPage<PageItem>(null, {
-                    title: 'Title...',
-                    locale: 'en-US',
-                    content: []
-                }, page => createNode(page));
-            }}>Добавить
-            </button>
+            {treeData.length === 0 && (
+                <button onClick={() => {
+                    actions.createPage<PageItem>(null, {
+                        title: 'Title...',
+                        locale: 'en-US',
+                        content: []
+                    }, page => createNode(page));
+                }}>
+                    Добавить
+                </button>
+            )}
             <div style={{height: 800}} ref={parentRef}>
                 <DndTree<TreeEntity<PageItem>>
                     treeData={treeData}
@@ -62,9 +65,9 @@ export default () => {
                             } else {
                                 changeTreeData((prevTree) => {
                                     const parentNode = findParentNode(node.content.parentPath, prevTree) as TreeEntity<PageItem>;
-                                    parentNode.children = parentNode.children.filter(item => item.content._id !== node.content._id)
+                                    parentNode.children = parentNode.children.filter(item => item.content._id !== node.content._id);
                                     return [...prevTree];
-                                })
+                                });
                             }
                         },
                         createNode: (page: PageItem) => createNode(page)
@@ -72,5 +75,5 @@ export default () => {
                 />
             </div>
         </div>
-    )
+    );
 }

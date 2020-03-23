@@ -1,0 +1,16 @@
+@import "../../../../../../../../css-variables";
+
+.ExternalLink {
+
+  &__content{
+    margin-top: 30px;
+  }
+
+  &__label{
+    @extend .form-label;
+  }
+
+  &__toolbar {
+    margin-top: 30px;
+  }
+}

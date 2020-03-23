@@ -43,6 +43,10 @@ export interface ImageDescription extends BaseModuleDescription {
     title: string
 }
 
+export interface LinkDescription extends BaseModuleDescription {
+    type: 'link'
+}
+
 // function which cast to particular class of BaseModeDescription
 export function isObjectDescription(description: BaseModuleDescription): description is ObjectDescription {
     return description.type === 'object';
@@ -58,6 +62,10 @@ export function isArrayDescription(description: BaseModuleDescription): descript
 
 export function isImageDescription(description: BaseModuleDescription): description is ImageDescription {
     return description.type === 'image';
+}
+
+export function isLinkDescription(description: BaseModuleDescription): description is LinkDescription {
+    return description.type === 'link';
 }
 
 

@@ -13,8 +13,12 @@ export type CustomizeDefaultThemeProps = {
     specificNodeContentRenderer?: (props: NodeContentRendererProps) => React.ReactElement,
     specificCollapseButtonRenderer?: (props: CollapseButtonRendererProps) => React.ReactElement,
     specificDragSourceRenderer?: (props: DragSourceRendererProps) => React.ReactElement,
-    deleteNode: (node: TreeItem) => void,
-    createNode: (page: PageItem) => void,
+    deleteNode?: (node: TreeItem) => void,
+    createNode?: (page: PageItem) => void,
+    actions?: any,
+    classNames?: {
+        rowWrapper?: (node: TreeItem) => string,
+    },
     parentRef?: RefObject<HTMLElement | null>
 }
 export default function customizeDefaultTheme(props: CustomizeDefaultThemeProps): ThemeProps {

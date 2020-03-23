@@ -1,0 +1,31 @@
+@import "../../../../../../css-variables";
+
+.LinkValue {
+  &__label {
+    @extend .form-label
+  }
+
+  &__content {
+    display: flex;
+  }
+
+  &__valueWrapper {
+    flex-grow: 1;
+    font-size: 1rem;
+    line-height: 1.8rem;
+    position: relative;
+  }
+
+  &__value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &__toolbar {
+
+  }
+}

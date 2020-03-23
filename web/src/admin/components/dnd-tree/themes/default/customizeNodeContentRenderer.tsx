@@ -25,8 +25,9 @@ export type NodeContentRendererProps = {
     path: Array<string | number>,
     treeIndex: number,
     treeId: string,
-    deleteNode: (node: TreeItem) => void,
-    createNode: (node: PageItem) => void,
+    deleteNode?: (node: TreeItem) => void,
+    createNode?: (node: PageItem) => void,
+    actions?: any,
     parentRef?: RefObject<HTMLElement | null>
 }
 
@@ -44,6 +45,7 @@ export default ({
                     specificDragSourceRenderer,
                     deleteNode,
                     createNode,
+                    actions,
                     parentRef
                 }: CustomizeDefaultThemeProps) => {
 
@@ -140,7 +142,16 @@ export default ({
                                 )}
                                 >
                                     <div className={styles.nodeContentWrapper}>
-                                        {nodeContentRenderer({node, path, treeIndex, treeId, deleteNode, createNode, parentRef})}
+                                        {nodeContentRenderer({
+                                            node,
+                                            path,
+                                            treeIndex,
+                                            treeId,
+                                            actions,
+                                            deleteNode,
+                                            createNode,
+                                            parentRef
+                                        })}
                                     </div>
                                 </div>
                             </div>
