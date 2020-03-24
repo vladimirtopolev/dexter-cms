@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import cn from 'classnames';
 import styles from './NodeContentRenderer.module.scss';
 import {NodeContentRendererProps} from '../../../components/dnd-tree/themes/default/customizeNodeContentRenderer';
-import * as actions from '../actions';
+import * as actions from '../../../api/page-tree';
 import {PageItem} from '../types';
 
 type ContextMenuState = {

@@ -13,15 +13,23 @@ interface LinkValueComponentProps extends BuildAdminEditElementProps {
 
 import InternalLink from './link-types/internal/InternalLink';
 import ExternalLink from './link-types/external/ExternalLink';
+import Input from '../../../../../../components/common/Input';
 
 export enum LINK_TYPES {
     INTERNAL = 'internal',
     EXTERNAL = 'external'
 }
 
-type LinkValue = {
+export enum LINK_TARGETS {
+    NEW_WINDOW = 'new-window',
+    SAME_WINDOW = 'same-window'
+}
+
+export type LinkValue = {
     value: string,
-    type: LINK_TYPES
+    type: LINK_TYPES,
+    target?: LINK_TARGETS,
+    title: string
 }
 
 export default ({state, path, changeState}: LinkValueComponentProps) => {
@@ -34,22 +42,39 @@ export default ({state, path, changeState}: LinkValueComponentProps) => {
 
     const link = _.get<LinkValue>(state, path, {
         value: '/',
-        type: LINK_TYPES.INTERNAL
+        type: LINK_TYPES.INTERNAL,
+        target: LINK_TARGETS.SAME_WINDOW,
+        title: ''
     });
 
     return (
         <div className={styles.LinkValue}>
             <div className={styles.LinkValue__label}>Ссылка</div>
             <div className={styles.LinkValue__content}>
-                <div className={styles.LinkValue__valueWrapper}>
-                    <div className={styles.LinkValue__value}>
-                        {link.value}
+                <div className={cn(styles.LinkValue__group, styles.Group)}>
+                    <div className={styles.Group__title}>Заголовок</div>
+                    <div className={styles.Group__value}>
+                        <Input name="title"
+                               value={link.title}
+                               onChange={(title) => saveLink({...link, title})}/>
                     </div>
                 </div>
-                <button className={styles.LinkValue__toolbar}
-                        onClick={toggle}>
-                    <i className="far fa-edit"/>
-                </button>
+                <div className={cn(styles.LinkValue__group, styles.Group)}>
+                    <div className={styles.Group__title}>Ссылка</div>
+                    <div className={styles.Group__value}>
+                        <div className={styles.Link}>
+                            <div className={styles.Link__wrapper}>
+                                <div className={styles.Link__value}>
+                                    {link.value}
+                                </div>
+                            </div>
+                            <button className={styles.Link__toolbar}
+                                    onClick={toggle}>
+                                <i className="far fa-edit"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <LinkEditor isOpen={isOpen} toggle={toggle} link={link} saveLink={saveLink}/>
         </div>
@@ -87,14 +112,15 @@ function LinkEditor({isOpen, toggle, link, saveLink}: { isOpen: boolean, toggle:
     const [activeTab, changeTab] = useState<LINK_TYPES>(link.type);
 
     const changeActiveTab = (tab: LINK_TYPES) => {
-        changeLinkInMemory({...linkInMemory, type: tab});
         changeTab(tab);
+        changeLinkInMemory(() => ({...linkInMemory, type: tab}));
     };
 
-    useEffect(() => {
-        changeLinkInMemory(link);
-        changeActiveTab(link.type);
-    }, [link]);
+    const saveLinkHandler = (link: LinkValue) => {
+        changeLinkInMemory({...link});
+        changeTab(link.type);
+        saveLink(link);
+    };
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
@@ -102,15 +128,15 @@ function LinkEditor({isOpen, toggle, link, saveLink}: { isOpen: boolean, toggle:
             <ModalBody>
                 <Nav tabs>
                     {Object.keys(LINK_CONFIGURATION).map(key => {
-                        const type = LINK_CONFIGURATION[key].type;
+                        const {type, name} = LINK_CONFIGURATION[key];
                         return (
-                            <NavItem>
+                            <NavItem key={key}>
                                 <NavLink
                                     className={cn({active: activeTab === type})}
                                     onClick={() => {
                                         changeActiveTab(type);
                                     }}>
-                                    Внутрення ссылка
+                                    {name}
                                 </NavLink>
                             </NavItem>
                         );
@@ -120,8 +146,8 @@ function LinkEditor({isOpen, toggle, link, saveLink}: { isOpen: boolean, toggle:
                     {Object.keys(LINK_CONFIGURATION).map(key => {
                         const {type, Renderer} = LINK_CONFIGURATION[key];
                         return (
-                            <TabPane tabId={type}>
-                                <Renderer saveLink={saveLink} toggle={toggle} link={linkInMemory}/>
+                            <TabPane tabId={type} key={key}>
+                                <Renderer saveLink={saveLinkHandler} toggle={toggle} link={linkInMemory}/>
                             </TabPane>
                         );
                     })}

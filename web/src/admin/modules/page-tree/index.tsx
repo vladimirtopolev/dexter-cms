@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import DndTree from '../../components/dnd-tree';
 import {PageItem} from './types';
 
-import * as actions from './actions';
+import * as actions from '../../api/page-tree';
 import CollapseButtonRenderer from './components/CollapseButtonRenderer';
 import DragSourceRenderer from './components/DragSourceRenderer';
 import NodeContentRenderer from './components/NodeContentRenderer';

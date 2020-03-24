@@ -11,8 +11,11 @@ import * as converter from 'cyrillic-to-latin';
 import {Types} from 'mongoose';
 import findNodeByCondition from '../helpers/findNodeByCondition';
 
+interface PageItem extends PageEntityDocument{
+    pagePath?: string
+}
 class PageTreeController {
-    treeEntities: TreeEntity<PageEntityDocument>[] = [];
+    treeEntities: TreeEntity<PageItem>[] = [];
 
     constructor() {
         this.calculateTree.bind(this);

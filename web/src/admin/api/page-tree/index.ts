@@ -1,4 +1,4 @@
-import config from '../../../../config/config.json';
+import config from '../../../config/config.json';
 import axios from 'axios';
 
 export function getTree(callback: (data: any) => void) {

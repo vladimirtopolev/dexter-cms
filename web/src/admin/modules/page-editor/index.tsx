@@ -5,7 +5,7 @@ import Toolbar from './components/Toolbar';
 import Button from '../../components/common/Button';
 import PageView from './components/PageView';
 import {PageItem} from '../page-tree/types';
-import * as actions from '../page-tree/actions';
+import * as actions from '../../api/page-tree';
 
 import PageModulesEditor from './mode-types/page-modules-editor/PageModulesEditor';
 import ModuleEditor from './mode-types/module-editor/ModuleEditor';

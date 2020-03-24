@@ -20,7 +20,6 @@ const ModuleRenderer: React.ComponentType<ModuleRendererProps> = ({description, 
         const processObjectKeys = (): ReactNode => {
             return Object.keys(description.properties)
                 .map(key => {
-                    const targetedPath = path === '' ? key : `${path}.${key}`;
                     return <ModuleRenderer
                         key={key}
                         path={''}
@@ -45,7 +44,6 @@ const ModuleRenderer: React.ComponentType<ModuleRendererProps> = ({description, 
         if (description.component) {
 
         } else {
-            console.log(state, path, _.get(state, path, []));
             return state
                 .map((val: any, i: number) => {
                     return <ModuleRenderer path={''}

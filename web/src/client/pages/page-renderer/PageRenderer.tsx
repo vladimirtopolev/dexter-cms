@@ -13,17 +13,15 @@ export default (props: any) => {
     useEffect(() => {
         actions.getPageByPath(location.pathname)
             .then(page => {
-                console.log(page);
                 changePage(page);
             });
     }, [location.pathname]);
 
     useEffect(() => {
         const messageHandler = (e: any) => {
-            console.log('-----MESSAGE RECIEVED', e.detail.page);
-            changePage(e.detail.page)
+            console.log('E')
+            changePage(e.detail.page);
         };
-        console.log('IFRAME');
         window.addEventListener('custom', messageHandler);
         return () => window.removeEventListener('custom', messageHandler);
     });

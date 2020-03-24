@@ -26,6 +26,7 @@ export default ({toggle, saveLink, link}: ModalLink) => {
             <div className={styles.ExternalLink__toolbar}>
                 <Button onClick={() => {
                     saveLink({
+                        ...link,
                         type: LINK_TYPES.EXTERNAL,
                         value
                     });
