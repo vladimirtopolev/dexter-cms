@@ -1,5 +1,12 @@
 import _ from 'lodash';
-import {BaseModuleDescription, isArrayDescription, isInputDescription, isObjectDescription} from '../../../../types';
+import {
+    BaseModuleDescription,
+    isArrayDescription,
+    isInputDescription,
+    isLinkDescription,
+    isObjectDescription
+} from '../../../../types';
+import {LINK_TARGETS, LINK_TYPES} from '../value-types/link-value/LinkValue';
 
 interface GenerateStateProps {
     path: string,
@@ -24,6 +31,14 @@ export const regenerateState = ({description, path, state}: GenerateStateProps):
 
     if (isInputDescription(description)) {
         return _.get(state, path, description.defaultValue);
+    }
+
+    if (isLinkDescription(description)){
+        return _.get(state, path, {
+            type: LINK_TYPES.INTERNAL,
+            value: '/',
+            target: LINK_TARGETS.SAME_WINDOW
+        });
     }
 
     if (isArrayDescription(description)) {

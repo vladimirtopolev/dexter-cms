@@ -2,6 +2,29 @@ import {BasePageModule} from '../../modules/types';
 
 const modules: Array<BasePageModule> = [
     {
+        title: 'Слайдер',
+        description: {
+            type: 'object',
+            component: 'SliderModule',
+            properties: {
+                slides: {
+                    type: 'array',
+                    title: '<%=title%>',
+                    item: {
+                        type: 'object',
+                        properties: {
+                            title: {
+                                type: 'input',
+                                title: 'Заголовок',
+                                defaultValue: '',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
         title: 'Промо модуль',
         description: {
             type: 'object',

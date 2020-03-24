@@ -2,7 +2,8 @@ import React from 'react';
 import {Title} from './title/Title';
 import {User} from './user/User';
 
-import Promo from '../modules/promo/Promo'
+import Promo from '../modules/promo/Promo';
+import Slider from '../modules/slider/Slider';
 
 export type BaseUserComponentProps = {
     state: any,
@@ -11,8 +12,9 @@ export type BaseUserComponentProps = {
     [extraProps: string]: any
 }
 
-export const componentMapper: {[k: string]: React.ComponentType<BaseUserComponentProps>} = {
+export const componentMapper: { [k: string]: React.ComponentType<BaseUserComponentProps> } = {
     'TitleComponent': Title,
     'UserComponent': User,
-    'PromoModule': Promo
+    'PromoModule': Promo,
+    'SliderModule': Slider
 };
