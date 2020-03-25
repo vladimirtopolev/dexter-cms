@@ -19,7 +19,6 @@ export default (props: any) => {
 
     useEffect(() => {
         const messageHandler = (e: any) => {
-            console.log('E')
             changePage(e.detail.page);
         };
         window.addEventListener('custom', messageHandler);

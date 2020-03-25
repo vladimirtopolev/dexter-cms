@@ -13,7 +13,16 @@ const modules: Array<BasePageModule> = [
                     item: {
                         type: 'object',
                         properties: {
+                            image: {
+                                type: 'image',
+                                title: 'Изображение'
+                            },
                             title: {
+                                type: 'input',
+                                title: 'Заголовок',
+                                defaultValue: '',
+                            },
+                            description: {
                                 type: 'input',
                                 title: 'Заголовок',
                                 defaultValue: '',
